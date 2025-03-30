@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>게시글 수정</h1>
+    <form action="/board/edit/{{ post[0] }}" method="POST" enctype="multipart/form-data">
+        <label for="title">제목:</label>
+        <input type="text" id="title" name="title" value="{{ post[1] }}" required><br><br>
+
+        <label for="content">내용:</label>
+        <textarea id="content" name="content" required>{{ post[2] }}</textarea><br><br>
+
+        <label for="file">첨부파일:</label>
+        <input type="file" id="file" name="file"><br><br>
+
+        <label for="is_private">비밀글:</label>
+        <input type="checkbox" id="is_private" name="is_private" {% if post[7] == 1 %}checked{% endif %}><br><br>
+
+        <button type="submit">수정</button>
+    </form>
+
+    <br>
+    <a href="/board/read/{{ post[0] }}">게시글로 돌아가기</a>
+{% endblock %}

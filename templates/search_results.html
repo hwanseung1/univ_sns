@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="search-results-container">
+        <h3>검색 결과: "{{ query }}"</h3>
+
+        <table class="search-results-table">
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                </tr>
+                <tr>
+                    <td>{{ post[0] }}</td>
+                    <td><a href="/board/read/{{ post[0] }}">{{ post[1] }}</a></td>
+                    <td>{{ post[3] }}</td>
+                    <td>{{ post[4] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="no-results">검색 결과가 없습니다.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>아이디 찾기</h1>
+<form action="/find_id" method="POST">
+    <label for="name">이름:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="birthdate">생년월일:</label>
+    <input type="date" id="birthdate" name="birthdate" required><br><br>
+
+    <button type="submit">아이디 찾기</button>
+</form>
+<p><a href="/login">로그인 페이지로 돌아가기</a></p>
+{% endblock %}

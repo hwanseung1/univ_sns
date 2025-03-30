@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>자유게시판</h1>
+
+    <!-- 검색 폼 -->
+    <div class="search-form-container">
+        <form action="/board/search" method="GET" class="search-form">
+            <input type="text" name="query" placeholder="검색어 입력" required>
+            <select name="filter">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="all">전체</option>
+            </select>
+            <button type="submit">검색</button>
+        </form>
+    </div>
+
+    <div class="board-container">
+        <table class="board-table">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>비밀글</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td>{{ loop.revindex }}</td> <!-- 최신 글이 위로 가도록 번호 역순 -->
+                    <td><a href="/board/read/{{ post[0] }}">{{ post[1] }}</a></td> <!-- 제목 -->
+                    <td>{{ post[3] }}</td> <!-- 작성자 ID -->
+                    <td>{{ post[5] }}</td> <!-- 작성일 -->
+                    <td>
+                        {% if post[7] == 1 %}
+                            비밀글
+                        {% else %}
+                            공개글
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="board-actions">
+            {% if session['user_id'] %}
+                <a href="/board/create" class="btn">게시글 작성</a>
+            {% else %}
+                <a href="/login" class="btn btn-login">글을 쓰려면 로그인하세요</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

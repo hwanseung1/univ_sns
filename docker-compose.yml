@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: univ_sns
+    ports:
+      - "5000:5000"
+    environment:   #데이터베이스 정보
+      - MYSQL_HOST=db 
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DB=univ
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    networks:
+      - univ_network
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: univ
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql  # 데이터 영속성 확보
+    networks:
+      - univ_network
+
+networks:
+  univ_network:
+    driver: bridge
+
+volumes:
+  mysql-data:  # MySQL 데이터를 저장할 볼륨 정의

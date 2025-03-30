@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>프로필 수정</h1>
+    <form action="/profile/edit" method="POST" enctype="multipart/form-data">
+        <label for="name">이름:</label>
+        <input type="text" id="name" name="name" value="{{ name }}" required><br><br>
+
+        <label for="school">학교:</label>
+        <input type="text" id="school" name="school" value="{{ school }}" required><br><br>
+
+        <label for="birthdate">생년월일:</label>
+        <input type="date" id="birthdate" name="birthdate" value="{{ birthdate }}" required><br><br>
+
+        <label for="mypicture">프로필 사진:</label>
+        {% if mypicture %}
+            <div>
+                <!-- 기존 프로필 사진이 있을 경우 해당 이미지를 보여줌 -->
+                <img src="{{ url_for('static', filename='uploads/' + mypicture) }}" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%;">
+            </div>
+        {% else %}
+            <!-- 프로필 사진이 없으면 디폴트 이미지 -->
+            <div>
+                <img src="{{ url_for('static', filename='default-profile.png') }}" alt="Default Profile Picture" style="width: 150px; height: 150px; border-radius: 50%;">
+            </div>
+        {% endif %}
+        <input type="file" id="mypicture" name="mypicture"><br><br>
+
+        <button type="submit">저장</button>
+    </form>
+{% endblock %}

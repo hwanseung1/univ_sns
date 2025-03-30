@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>학생 목록</h2>
+<table border="1">
+    <tr>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>학교</th>
+        <th>생년월일</th>
+        <th>이메일</th>
+        <th>프로필 보기</th>
+    </tr>
+    {% for student in students %}
+    <tr>
+        <td>{{ student[0] }}</td>  <!-- 아이디 -->
+        <td>{{ student[1] }}</td>  <!-- 이름 -->
+        <td>{{ student[2] }}</td>  <!-- 학교 -->
+        <td>{{ student[3] }}</td>  <!-- 생년월일 -->
+        <td>{{ student[4] }}</td>  <!-- 이메일 -->
+        <td>
+            <a href="{{ url_for('view_profile', user_id=student[0]) }}">프로필 보기</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

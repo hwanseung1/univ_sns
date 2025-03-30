@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ student[1] }}님의 프로필</h1>
+    <div class="profile">
+        <div class="profile-image">
+            {% if profile_img %}
+                <img src="{{ url_for('upload_file', filename=profile_img.split('/')[-1]) }}" alt="Profile Image" style="width: 150px; height: 150px; border-radius: 50%;">
+            {% else %}
+                <img src="{{ url_for('static', filename='default-profile.png') }}" alt="Default Profile Picture" style="width: 150px; height: 150px; border-radius: 50%;">
+            {% endif %}
+        </div>
+        <div class="profile-info">
+            <p><strong>이름:</strong> {{ student[1] }}</p>
+            <p><strong>학교:</strong> {{ student[2] }}</p>
+            <p><strong>생년월일:</strong> {{ student[3] }}</p>
+        </div>
+        <!-- 프로필 수정 버튼, 본인만 볼 수 있도록 조건 추가 -->
+        {% if session['user_id'] == student[0] %}
+        <div class="profile_update_btn">
+            <a href="/profile/edit" class="btn btn-primary">프로필 수정</a>
+        </div>
+        {% endif %}
+    </div>
+
+    
+{% endblock %}
